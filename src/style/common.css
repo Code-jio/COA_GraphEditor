@@ -1,0 +1,257 @@
+@charset "utf-8";
+
+/* CSS Document */
+/*全局样式*/
+body {
+  font-family: "微软雅黑", Arial, Verdana, Helvetica, sans-serif, "宋体";
+  font-size: 12px;
+  color: #333;
+  background: #fff;
+}
+
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+table,
+td,
+th,
+img,
+div,
+tr,
+p,
+select,
+dl,
+dt,
+dd {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  border: 0 none;
+  vertical-align: middle;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+}
+
+a:focus {
+  outline: none;
+}
+
+.clear {
+  clear: both;
+  height: 0px;
+  display: block;
+  line-height: 0px;
+  visibility: hidden;
+  overflow: hidden;
+  zoom: 1;
+}
+
+input {
+  vertical-align: middle;
+  border: none;
+  background: none;
+}
+
+select {
+  vertical-align: middle;
+  border: none;
+  background: none;
+}
+
+button {
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+  font-size: 12px;
+}
+
+textarea,
+input {
+  word-wrap: break-word;
+  word-break: break-all;
+  padding: 0px;
+  background: none;
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type=button]::-moz-focus-inner,
+input[type=submit]::-moz-focus-inner {
+  border: none;
+}
+
+input[type=button],
+input[type=submit] {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+/* 左浮动*/
+.fl {
+  float: left;
+}
+/* 右浮动*/
+.fr {
+  float: right;
+}
+/* 鼠标变小手*/
+.cs {
+  cursor: pointer;
+}
+/* 超过一行内容多的变成... */
+.dian1 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+/* 超过两行行内容多的变成... */
+.dian2 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+/* 超过三行内容多的变成... */
+.dian3 {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+/* 12px的字体至28px 如果你是其他单位的如rem等,请自行斟酌修改使用*/
+.fs12 {
+  font-size: 12px;
+}
+
+.fs14 {
+  font-size: 14px;
+}
+
+.fs16 {
+  font-size: 16px;
+}
+
+.fs18 {
+  font-size: 18px;
+}
+
+.fs20 {
+  font-size: 20px;
+}
+
+.fs22 {
+  font-size: 22px;
+}
+
+.fs24 {
+  font-size: 24px;
+}
+
+.fs26 {
+  font-size: 26px;
+}
+
+.fs28 {
+  font-size: 28px;
+}
+
+.fixed:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+}
+
+html .fixed {
+  *zoom: 1;
+}
+/* 清除浮动 */
+.cb {
+  clear: both;
+}
+/* 不让用户选中 */
+.noselect {
+
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+
+  -khtml-user-select: none;
+  /* Konqueror */
+
+  -moz-user-select: none;
+  /* Firefox */
+
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+
+  user-select: none;
+  /* Non-prefixed version, currently
+  
+  not supported by any browser */
+
+}
+  .scrollbarchange::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 5px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+    position: absolute;
+    right: 0px;
+  }
+  .scrollbarchange::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 10px;
+    background: #e0e0e0;
+  }
+  .scrollbarchange::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    border-radius: 10px;
+    background: #f2f2f2;
+  }
+

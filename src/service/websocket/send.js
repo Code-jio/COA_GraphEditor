@@ -1,7 +1,6 @@
-
 /* eslint-disable */
-import '../proto/proto_main.js';
-import socketMgr from '../websocket/websocket';
+import '@/service/proto/proto_main.js';
+import socketMgr from '@/service/websocket/websocket';
 import { useSelector } from 'react-redux';
 
 

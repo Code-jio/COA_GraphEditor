@@ -208,6 +208,9 @@ module.exports = {
     resolve: {
         // 自动补全文件扩展名
         extensions: [".jsx", ".js", ".json"],
+        alias: {
+            "@": path.resolve(__dirname, "../src"),
+        }
     },
     devServer: {
         host: "172.16.100.95",
