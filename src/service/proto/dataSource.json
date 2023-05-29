@@ -1,0 +1,152 @@
+{
+    "dataSource": [
+        {
+            "id":1,
+            "name":"所有装备信息",
+            "column":[
+                {"name":"model_id","type":"INT","index":0},
+                {"name":"type_id","type":"INT","index":1},
+                {"name":"model_name","type":"TEXT","index":3},
+                {"name":"type_name","type":"TEXT","index":13},
+                {"name":"country","type":"TEXT","index":2},
+                {"name":"length","type":"REAL","index":4},
+                {"name":"width","type":"REAL","index":5},
+                {"name":"height","type":"REAL","index":6},
+                {"name":"speed_min","type":"REAL","index":7},
+                {"name":"speed_eva","type":"REAL","index":8},
+                {"name":"speed_max","type":"REAL","index":9},
+                {"name":"value","type":"REAL","index":11}
+            ],
+            "sqlStr":"select EquipmentModel.*,EquipmentType.id,EquipmentType.equipment_type from EquipmentType , EquipmentModel where  EquipmentType.id=EquipmentModel.type_id",
+            "paramCount":0
+        },
+
+        {
+            "id":2,
+            "name":"装备扩展属性",
+            "column":[
+                {"name":"property_id","type":"INT","index":0},
+                {"name":"moel_id","type":"INT","index":1},
+                {"name":"property_name","type":"TEXT","index":2},
+                {"name":"property_measure","type":"TEXT","index":3},
+                {"name":"value_eva","type":"REAL","index":4},
+                {"name":"value_max","type":"REAL","index":5},
+                {"name":"value_min","type":"REAL","index":6}               
+            ],
+            "sqlStr":"select * from EquipmentExtentProperty where  equipment_model_id=###",
+            "paramCount":1
+
+        },
+		
+		{
+            "id":3,
+            "name":"活动定义",
+            "column":[
+                {"name":"def_id","type":"INT","index":0},
+				{"name":"equip_action_model_id","type":"INT","index":1},
+                {"name":"target_type","type":"INT","index":2},
+                {"name":"probability_success","type":"REAL","index":3},
+                {"name":"rules","type":"TEXT","index":4},
+                {"name":"equip_model_id","type":"INT","index":6},
+                {"name":"action_name","type":"TEXT","index":7},
+                {"name":"action_type_id","type":"INT","index":8},
+                {"name":"action_range","type":"INT","index":9},
+                {"name":"time_cost","type":"INT","index":10}
+            ],
+            "sqlStr":"select *  from EquipActionModelDef,EquipActionModel where EquipActionModelDef.equip_action_model_id=EquipActionModel.equip_action_model_id",
+            "paramCount":0
+
+        },
+		
+		{
+            "id":4,
+            "name":"任务模板",
+            "column":[
+                {"name":"mission_id","type":"INT","index":0},
+				{"name":"mission_name","type":"TEXT","index":1},
+                {"name":"task_template_id","type":"INT","index":3},
+                {"name":"task_template_des","type":"TEXT","index":5}               
+            ],
+            "sqlStr":"SELECT * FROM MissionDef, TaskTemplates where TaskTemplates.mission_id=MissionDef.mission_id",
+            "paramCount":0
+        },
+		
+		{
+            "id":5,
+            "name":"任务模板-节点",
+            "column":[
+			    {"name":"task_template_node_id","type":"INT","index":0},
+                {"name":"task_template_id","type":"INT","index":1},
+                {"name":"task_model_id","type":"INT","index":2},
+				{"name":"node_name","type":"TEXT","index":6},
+                {"name":"restrictions_equip_type_our","type":"TEXT","index":3},
+                {"name":"associated_action_type","type":"INT","index":7},  
+				{"name":"restrictions_equip_type_enemy","type":"TEXT","index":4}				
+            ],
+            "sqlStr":"SELECT * FROM TaskTemplatesNodes,TaskModel WHERE TaskModel.task_model_id=TaskTemplatesNodes.task_model_id",
+            "paramCount":0
+        },
+		
+		{
+            "id":6,
+            "name":"任务模板-边",
+            "column":[
+                {"name":"task_template_id","type":"INT","index":3},
+				{"name":"start_task_node_id","type":"INT","index":1},
+                {"name":"end_task_node_id","type":"INT","index":2}              
+            ],
+            "sqlStr":"SELECT * from TaskTemplatesEdges",
+            "paramCount":0
+        },
+        {
+            "id":7,
+            "name":"装备搭载关系",
+            "column":[
+                {"name":"relation_id","type":"INT","index":0},
+				{"name":"host_equip_id","type":"INT","index":1},
+                {"name":"carried_equip_id","type":"INT","index":2},
+                {"name":"activity_radius","type":"INT","index":3}
+            ],
+            "sqlStr":"SELECT * FROM CarryingRelations",
+            "paramCount":0
+        },
+        {
+            "id":8,
+            "name":"可预置的装备类型",
+            "column":[
+                {"name":"equip_model_id","type":"INT","index":0}
+            ],
+            "sqlStr":"SELECT DISTINCT(equip_model_id) FROM EquipActionModel where EquipActionModel.action_type_id=9",
+            "paramCount":0
+        },
+		
+		{
+            "id":9,
+            "name":"任务模板-节点",
+            "column":[
+			    {"name":"task_template_node_id","type":"INT","index":0},
+                {"name":"task_template_id","type":"INT","index":1},
+                {"name":"task_model_id","type":"INT","index":2},
+				{"name":"node_name","type":"TEXT","index":6},
+                {"name":"restrictions_equip_type_our","type":"TEXT","index":3},
+                {"name":"associated_action_type","type":"INT","index":7},  
+				{"name":"restrictions_equip_type_enemy","type":"TEXT","index":4}				
+            ],
+            "sqlStr":"SELECT * FROM TaskTemplatesNodes,TaskModel WHERE TaskModel.task_model_id=TaskTemplatesNodes.task_model_id and  task_template_id=###",
+            "paramCount":1
+        },
+		
+		{
+            "id":10,
+            "name":"任务模板-边",
+            "column":[
+                {"name":"task_template_id","type":"INT","index":3},
+				{"name":"start_task_node_id","type":"INT","index":1},
+                {"name":"end_task_node_id","type":"INT","index":2}              
+            ],
+            "sqlStr":"SELECT * from TaskTemplatesEdges where task_template_id=###",
+            "paramCount":1
+        }
+
+    ]
+}

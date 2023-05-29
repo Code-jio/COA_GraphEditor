@@ -1,0 +1,374 @@
+syntax = "proto3";
+
+//组件类别
+enum EntityType{
+	PC_SCHEDULER=0;
+	PC_DBPROXY=2;	
+	GW_WEBSOCKET = 3;
+	GW_EXTAPP=4;	
+	ALGO_COAGEN=5;
+	ALGO_COAEVA=6;
+	ALGO_COAOPT=7;	
+	FE_BROWSER=8;
+	EX_APP=9;
+	ET_UNDEFIENED=121;
+  }
+
+//消息类别
+enum MessageType { 
+	 
+	 MT_UNDEFIENED=0;
+	 
+	 REQ_TASKINFO=4;
+	 REQ_TASKINFODOC=5;
+	 ACK_TASKDONE=6;
+	 REQ_COALIST=7;
+	 ACK_COALIST=8;
+	 REQ_OPTCOA=9;
+	 REQ_COANET=10;
+	 ACK_COANET=11;
+	 REQ_COAEVA=12;
+	 ACK_COAEVA=13;
+	 REQ_COACLASSIFY=14;
+	 ACK_COACLASSIFY=15;
+	 REQ_COAOPT=16;
+	 ACK_COAOPT=17;
+	 
+	 
+	
+	 REQ_EQUIPMODEL_INFO_ALL=30;
+	 ACK_EQUIPMODEL_INFO_ALL=31;
+	 REQ_EQUIPMODEL_INFO_SINGLE=32;
+	 ACK_EQUIPMODEL_INFO_SINGLE=33;
+	 
+	 REQ_EQUIPMODEL_INFO_UPDATE=34;//or insert,fixed property
+	 REQ_EQUIPMODEL_INFO_DELETE=35;
+	 REQ_EQUIPMODEL_EXINFO_INSERT=36;
+	 REQ_EQUIPMODEL_EXINFO_DELETE=37;
+	 
+	 
+	 
+	 
+	 
+	 
+	 TST_POSITIONS=50;
+	 
+	 DB_GENERAL_TABLE=51;
+	 REQ_DB_GENERAL=52;
+	 
+	 
+	 REQ_DAG_STRING=53;
+	 ACK_DAG_STRING=54;
+	 
+	 PC_ENTITY_REGISTER=101;
+	 PC_SUBSCRIBE_UPDATE=102;
+	 PC_TOPOLOGY_UPDATE=103;
+	 
+	 PC_LOGON_REQUEST=104;
+	 PC_LOGON_ASW=105;
+	 
+	 PC_ID_START=106;
+	 PC_ID_TABLE=107;
+	 PC_NODES_MANAGED=108;
+	 PC_HEART_BEAT=127;
+		 
+ }
+ 
+ enum DagStringType
+ {
+	TASK_TEMPLATE=0;
+	COA_SEQUENCE=1;
+ }
+ 
+//REQ_EQUIPMODEL_INFO_UPDATE(or insert,fixed property)
+message req_equipmodel_info_update{
+	uint32 equip_model_id=1;
+	uint32 type_id=2;
+	string area=3;
+	string name=4;
+	double length=5;
+	double width=6;
+	double height=7;
+	double speed_eva=8;
+	double speed_max=9;
+	double speed_min=10;	
+}
+//REQ_EQUIPMODEL_INFO_DELETE
+message req_equipmodel_info_delete{
+	uint32 equip_model_id=1;
+}
+
+//REQ_EQUIPMODEL_EXINFO_INSERT
+message req_equipmodel_exinfo_insert{
+	uint32 equip_model_id=1;
+	equipmodel_extent_info extent_info=2;
+}
+
+//REQ_EQUIPMODEL_EXINFO_DELETE
+message req_equipmodel_exinfo_delete{
+	uint32 property_id=1;
+}
+
+
+//REQ_EQUIPMODEL_INFO_ALL=30;
+
+//ACK_EQUIPMODEL_INFO_ALL=31;
+message ack_equipmodel_info_all{
+	repeated ack_equipmodel_info_single info_all=1;
+	
+}
+//REQ_EQUIPMODEL_INFO_SINGLE=32;
+message req_equipmodel_info_single{
+	uint32 equip_model_id=1;
+}
+//ACK_EQUIPMODEL_INFO_SINGLE=33;
+message ack_equipmodel_info_single{
+	uint32 equip_model_id=1;
+	uint32 type_id=2;
+	string area=3;
+	string name=4;
+	double length=5;
+	double width=6;
+	double height=7;
+	double speed_eva=8;
+	double speed_max=9;
+	double speed_min=10;
+	repeated equipmodel_extent_info extent_info=11;
+	string type_name=12;
+}
+ 
+message equipmodel_extent_info{
+	uint32 property_id=1;
+	string property_name=2;
+	string property_measure=3;
+	double eva_value=4;
+	double max_value=5;
+	double min_value=6;
+}
+
+message main_packet {
+	uint32 access_point_id = 1;
+    EntityType origin_entity_type = 2;
+	uint32 origin_entity_id=3;
+	MessageType message_type=4;
+	uint32 dest_entity_id=5;//if not 0,only transmit this msg to dest_entity
+	int64 time=6;
+	bytes token=7;
+	bytes content=8;
+	bytes check=9;
+ }
+ 
+
+//REQ_TASKINFO
+message req_task_info{
+	string  task_name=1;
+	uint32 task_construct_time=2;
+	uint32 task_mission_id=3;
+	uint32 task_wave_scale=4;
+	uint32 task_tide_type=5;
+	uint32 task_area_type=6;
+	repeated position task_area_info=7;
+	repeated equipment_info equipments_our=8;
+	repeated equipment_info equipments_enemy=9;
+}
+
+//REQ_TASKINFODOC
+message req_task_info_doc{
+	bytes  task_info_doc=1;
+}
+
+//ACK_TASKDONE
+message ack_task_done{
+	uint32 time_cost=1;
+	uint32 count_coa=2;
+}
+
+//REQ_COALIST
+message req_coa_list{
+	uint32 task_id=1;
+}
+
+//ACK_COALIST
+message ack_coa_list{
+	uint32 task_id=1;
+	repeated uint32 coa_ids=2;
+}
+
+//REQ_OPTCOA
+message req_opt_coa{
+	uint32 task_id=1;
+	uint32 coa_id=2;
+}
+
+//REQ_COANET
+message req_coa_net{
+	uint32 coa_id=1;
+}
+
+//ACK_COANET
+message ack_coa_net{
+	uint32 coa_id=1;
+	repeated action_info actions=2;
+	repeated action_serial edges=3;
+}
+
+//REQ_COAEVA
+message req_coa_eva{
+	uint32 coa_id=1;
+}
+
+//ACK_COAEVA
+message ack_coa_eva{
+	uint32 coa_id=1;
+	uint32 eva_rst=2;
+}
+
+//REQ_COACLASSIFY
+message req_coa_classify{
+	uint32 coa_id=1;
+}
+
+
+//ACK_COACLASSIFY
+message ack_coa_classify{
+	uint32 coa_id=1;
+	uint32 eclassify_rst=2;
+}
+
+//REQ_COAOPT
+message req_coa_opt{
+	uint32 coa_id=1;
+}
+
+
+//ACK_COAOPT
+message ack_coa_opt{
+	uint32 coa_id=1;
+	repeated action_info actions=2;
+	repeated action_serial edges=3;
+}
+
+
+//PC_HEART_BEAT
+message pc_heart_beat {
+	uint32 busyness=1;
+}
+
+//DB_GENERAL_TABLE
+message db_general_table{
+	uint32 data_source_id=1;
+	repeated db_general_row data_row=2;
+}
+
+message db_general_row{
+	repeated string value=1;
+}
+
+//REQ_DB_GENERAL
+message req_db_general{
+	uint32 data_source_id=1;
+	string params=2;
+}
+
+message equipment_info{
+	uint32 equipment_model_id=1;
+	uint32 count=2;
+	position pos=3;
+	string equip_resourse=4;
+	string equip_weapon=5;
+}
+
+message action_info{
+	uint32 action_entity_id=1;
+	uint32 action_model_id=2;
+	string action_name=3;
+	uint32 host_equip_id=4;
+	string host_equip_name=5;
+	uint32 target_equip_id=6;
+	string target_equip_name=7;
+}
+
+message action_serial{
+	uint32 start_action_id=1;
+	uint32 end_action_id=2;
+}
+
+
+message position{
+	double latitude=1;
+	double longitude=2;
+}
+
+
+message pc_id_start
+{
+    uint32 start_index=1;
+}
+
+message pc_id_table
+{
+    repeated uint32 start_index=1;
+}
+
+message pc_nodes_managed
+{
+    repeated node_info nodes_info=1;
+}
+
+
+
+message pc_entity_register {
+	bytes subscribe_table=1;
+}
+
+message pc_subscribe_update {
+	bytes subscribe_table=1;
+}
+
+message pc_topology_update {
+	repeated entity_statistic statistic=1;
+}
+
+
+message pc_logon_request {
+	string username=1;
+	string password=2;
+}
+
+message pc_logon_asw {
+    bool   rst=1;
+	uint32 id=2;
+	bytes  token=3;
+}
+
+
+message entity_statistic {
+    EntityType entity_type = 1;
+	uint32 count=2;
+}
+
+message node_info {
+    uint32 id=1;
+    EntityType entity_type = 2;
+}
+
+
+
+//TST_POSITIONS
+message tst_positions{
+	repeated position poss=1;
+}
+
+//REQ_DAG_STRING=53;
+message req_dag_string{
+	DagStringType type=1;
+	uint32 item_id=2;
+}
+
+
+//ACK_DAG_STRING=54;
+message ack_dag_string{
+	DagStringType type=1;
+	uint32 item_id=2;
+	repeated string info=3;
+}
