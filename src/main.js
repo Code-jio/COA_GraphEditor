@@ -12,11 +12,11 @@ Window.prototype.socketMgr = socketApi;
 
 const root = ReactDOM.createRoot(document.getElementById('App'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      {/* <App /> */}
-      <IndexView></IndexView>
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    {/* <App /> */}
+    <IndexView></IndexView>
+  </Provider>
+  // </React.StrictMode>
 );
 
